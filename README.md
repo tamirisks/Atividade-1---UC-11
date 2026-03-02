@@ -1,10 +1,10 @@
-# Atividade-1---UC-11
+# Atividade 1 - UC 11
 
-# Nome do projeto
+## Nome do projeto
 Projeto casa de leilões.
 
-# Explicação sobre o que se trata o projeto
+## Explicação sobre o que se trata o projeto
 Projeto iniciado por uma casa de leilão, que está interessada em utilizar um sistema informatizado em suas rotinas.
 
-# Tecnologias utilizadas:
+## Tecnologias utilizadas:
 Java.
