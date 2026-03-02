@@ -6,4 +6,4 @@ Projeto casa de leilões
 # Explicação sobre o que se trata o projeto
 
 # Tecnologias utilizadas:
-Java e MySQL
+Java
