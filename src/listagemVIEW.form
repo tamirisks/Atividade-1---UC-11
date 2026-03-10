@@ -150,6 +150,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JTextPane" name="id_produto_venda">
+          <Events>
+            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="id_produto_vendaAncestorAdded"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
