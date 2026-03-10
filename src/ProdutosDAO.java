@@ -1,42 +1,76 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Adm
- */
-
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.List;
+
 
 
 public class ProdutosDAO {
     
-    Connection conn;
-    PreparedStatement prep;
-    ResultSet resultset;
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+    private conectaDAO conexao;
+    private Connection conn;
+    PreparedStatement st;
+    
+    public ProdutosDAO() {
+        this.conexao = new conectaDAO();
+        this.conn = this.conexao.connectDB();
+    }
     
     public void cadastrarProduto (ProdutosDTO produto){
-        
-        
-        //conn = new conectaDAO().connectDB();
-        
-        
+           
+        int status;
+        try{
+            st = conn.prepareStatement(
+                    "INSERT INTO produtos (nome, valor, status) "
+                            + "VALUES(?,?,?)"
+            );
+                       
+            st.setString(1, produto.getNome());
+            st.setInt(2, produto.getValor());
+            st.setString(3, produto.getStatus());
+            status = st.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+            
+        } catch (SQLException ex) {
+            System.out.println("Erro ao conectar: " + ex.getMessage());
+            //return ex.getErrorCode();
+        }
     }
     
-    public ArrayList<ProdutosDTO> listarProdutos(){
+    public List<ProdutosDTO> listarProdutos (String tipo){
+    String sql = "SELECT * FROM produtos WHERE id LIKE ?";
+
+    try {                 
+        PreparedStatement stmt = this.conn.prepareStatement(sql);
+        stmt.setString(1,"%" + tipo + "%");
+        ResultSet rs = stmt.executeQuery();
         
-        return listagem;
-    }
-    
-    
-    
+        List<ProdutosDTO> ListaProdutos = new ArrayList<>();
+
+        while (rs.next()) { 
+        ProdutosDTO produtosdto = new ProdutosDTO();
+        produtosdto.setNome(rs.getString("nome"));
+        produtosdto.setValor(rs.getInt("valor"));
+        produtosdto.setStatus(rs.getString("status"));
         
+        ListaProdutos.add(produtosdto);       
+        }
+        
+        return ListaProdutos;
+        
+    //tratando o erro, caso ele ocorra     
+    } catch (Exception e) {
+        System.out.println("erro: " + e.getMessage());
+        return null;
+      }      
+    
 }
+        
+        
+    }
+    
+
 
